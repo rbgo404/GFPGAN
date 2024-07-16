@@ -1,0 +1,15 @@
+build:
+  cuda_version: "12.1.1"
+  system_packages:
+    - "ffmpeg"
+    - "libsm6"
+    - "libxext6"
+  python_packages:
+    - "basicsr==1.4.2"
+    - "facexlib==0.3.0"
+    - "realesrgan==0.3.0"
+    - "torchvision==0.16.0"
+  run:
+    - "git clone https://github.com/TencentARC/GFPGAN.git"
+    - "cd GFPGAN"
+    - "python3 setup.py develop"
