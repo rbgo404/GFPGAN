@@ -10,11 +10,10 @@ from PIL import Image
 
 class InferlessPythonModel:
     def initialize(self):
-        
         nfs_volume = "/var/nfs-mount/face-app"
         if os.path.exists(nfs_volume + "GFPGANv1.4.pth") == False :
             os.system(f"wget https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -P {nfs_volume}")
-
+            os.system(f"wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth -P {nfs_volume}")
         model = SRVGGNetCompact(num_in_ch=3, num_out_ch=3, num_feat=64, num_conv=32, upscale=4, act_type='prelu')
         upsampler = RealESRGANer(scale=4, model_path=f'{nfs_volume}/realesr-general-x4v3.pth', model=model, tile=0, tile_pad=10, pre_pad=0, half=True)
         self.face_enhancer = GFPGANer(model_path=f'{nfs_volume}/GFPGANv1.4.pth', upscale=2, arch='clean', channel_multiplier=2, bg_upsampler=upsampler)
