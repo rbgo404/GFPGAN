@@ -10,7 +10,7 @@ from PIL import Image
 
 class InferlessPythonModel:
     def initialize(self):
-        nfs_volume = "/var/nfs-mount/face-app"
+        nfs_volume = os.getenv("NFS_VOLUME")
         if os.path.exists(nfs_volume + "GFPGANv1.4.pth") == False :
             os.system(f"wget https://github.com/TencentARC/GFPGAN/releases/download/v1.3.0/GFPGANv1.4.pth -P {nfs_volume}")
             os.system(f"wget https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth -P {nfs_volume}")
